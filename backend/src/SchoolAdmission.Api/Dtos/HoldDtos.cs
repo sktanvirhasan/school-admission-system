@@ -6,3 +6,11 @@ public record HoldCreatedResponse(
     string StudentId,
     string Status,
     DateTime ExpiresAt);
+
+    public record HoldStatusResponse(
+    string HoldId,
+    string ClassId,
+    string Status,
+    DateTime ExpiresAt);
+
+public record HoldConfirmedResponse(string HoldId, string Status);

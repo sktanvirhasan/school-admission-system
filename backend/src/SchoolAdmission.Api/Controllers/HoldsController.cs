@@ -26,7 +26,7 @@ public class HoldsController(AppDbContext db, IConfiguration config) : Controlle
     public async Task<IActionResult> CreateHold(string classId)
     {
         if (!StudentIdHeader.TryGet(Request, out var studentId, out var error))
-    return BadRequest(new { message = error });
+            return BadRequest(new { message = error });
 
         await using var tx = await db.Database.BeginTransactionAsync();
 
@@ -79,5 +79,86 @@ public class HoldsController(AppDbContext db, IConfiguration config) : Controlle
 
         return Created($"/holds/{hold.Id}", new HoldCreatedResponse(
             hold.Id, hold.ClassId, hold.StudentId, hold.Status.ToString(), hold.ExpiresAt));
+    }
+
+    [HttpGet("holds/{holdId}")]
+    public async Task<IActionResult> GetHold(string holdId)
+    {
+        var hold = await db.Holds.AsNoTracking().FirstOrDefaultAsync(h => h.Id == holdId);
+
+        if (hold is null)
+            return NotFound(new { message = "Hold not found." });
+
+        var status = hold.Status == HoldStatus.HELD && hold.ExpiresAt <= DateTime.UtcNow
+            ? HoldStatus.EXPIRED
+            : hold.Status;
+
+        return Ok(new HoldStatusResponse(hold.Id, hold.ClassId, status.ToString(), hold.ExpiresAt));
+    }
+
+    [HttpPost("holds/{holdId}/confirm")]
+    public async Task<IActionResult> Confirm(string holdId)
+    {
+        if (!StudentIdHeader.TryGet(Request, out var studentId, out var error))
+            return BadRequest(new { message = error });
+
+        var now = DateTime.UtcNow;
+
+        var updated = await db.Holds
+            .Where(h => h.Id == holdId
+                        && h.StudentId == studentId
+                        && h.Status == HoldStatus.HELD
+                        && h.ExpiresAt > now)
+            .ExecuteUpdateAsync(s => s.SetProperty(h => h.Status, HoldStatus.CONFIRMED));
+
+        if (updated == 1)
+            return Ok(new HoldConfirmedResponse(holdId, HoldStatus.CONFIRMED.ToString()));
+
+        var hold = await db.Holds.AsNoTracking().FirstOrDefaultAsync(h => h.Id == holdId);
+
+        if (hold is null)
+            return NotFound(new { message = "Hold not found." });
+
+        if (hold.StudentId != studentId)
+            return StatusCode(StatusCodes.Status403Forbidden,
+                new { message = "This hold belongs to another student." });
+
+        if (hold.Status == HoldStatus.CONFIRMED)
+            return Ok(new HoldConfirmedResponse(holdId, HoldStatus.CONFIRMED.ToString()));
+
+        return Conflict(new { message = "This hold has expired or was cancelled." });
+    }
+
+    [HttpDelete("holds/{holdId}")]
+    public async Task<IActionResult> Cancel(string holdId)
+    {
+        if (!StudentIdHeader.TryGet(Request, out var studentId, out var error))
+            return BadRequest(new { message = error });
+
+        var now = DateTime.UtcNow;
+
+        var updated = await db.Holds
+            .Where(h => h.Id == holdId
+                        && h.StudentId == studentId
+                        && h.Status == HoldStatus.HELD
+                        && h.ExpiresAt > now)
+            .ExecuteUpdateAsync(s => s.SetProperty(h => h.Status, HoldStatus.CANCELLED));
+
+        if (updated == 1)
+            return NoContent();
+
+        var hold = await db.Holds.AsNoTracking().FirstOrDefaultAsync(h => h.Id == holdId);
+
+        if (hold is null)
+            return NotFound(new { message = "Hold not found." });
+
+        if (hold.StudentId != studentId)
+            return StatusCode(StatusCodes.Status403Forbidden,
+                new { message = "This hold belongs to another student." });
+
+        if (hold.Status == HoldStatus.CONFIRMED)
+            return Conflict(new { message = "A confirmed application cannot be cancelled." });
+
+        return Conflict(new { message = "This hold has already expired or was cancelled." });
     }
 }
