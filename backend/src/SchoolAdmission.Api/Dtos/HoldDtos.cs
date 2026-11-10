@@ -13,4 +13,11 @@ public record HoldCreatedResponse(
     string Status,
     DateTime ExpiresAt);
 
+    public record MyHoldResponse(
+    string HoldId,
+    string ClassId,
+    string ClassName,
+    string Status,
+    DateTime ExpiresAt);
+
 public record HoldConfirmedResponse(string HoldId, string Status);

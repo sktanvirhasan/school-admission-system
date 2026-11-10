@@ -161,4 +161,41 @@ public class HoldsController(AppDbContext db, IConfiguration config) : Controlle
 
         return Conflict(new { message = "This hold has already expired or was cancelled." });
     }
+
+    [HttpGet("me/holds")]
+    public async Task<IActionResult> MyHolds()
+    {
+        if (!StudentIdHeader.TryGet(Request, out var studentId, out var error))
+            return BadRequest(new { message = error });
+
+        var now = DateTime.UtcNow;
+
+        var rows = await db.Holds
+            .AsNoTracking()
+            .Where(h => h.StudentId == studentId)
+            .OrderByDescending(h => h.CreatedAt)
+            .ThenByDescending(h => h.Id)
+            .Select(h => new
+            {
+                h.Id,
+                h.ClassId,
+                ClassName = h.Class!.Name,
+                h.Status,
+                h.ExpiresAt
+            })
+            .ToListAsync();
+
+        var result = rows
+            .Select(r => new MyHoldResponse(
+                r.Id,
+                r.ClassId,
+                r.ClassName,
+                (r.Status == HoldStatus.HELD && r.ExpiresAt <= now
+                    ? HoldStatus.EXPIRED
+                    : r.Status).ToString(),
+                r.ExpiresAt))
+            .ToList();
+
+        return Ok(result);
+    }
 }
