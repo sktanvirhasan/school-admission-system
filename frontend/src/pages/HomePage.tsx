@@ -32,7 +32,7 @@ export const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50/70 flex flex-col text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
       
-      <Navbar />
+      <Navbar onNavigateHome={() => setCurrentTab('classes')} />
 
       
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:px-6 space-y-6">
