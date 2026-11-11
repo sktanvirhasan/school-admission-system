@@ -7,6 +7,9 @@ export const en: typeof bn = {
     subtitle: 'First-come, first-served online admission system',
     footer_text: 'School Admission System — Online Admission Portal',
     footer_help: 'If you face any issues, refresh with your 17-digit student ID',
+    session_year: '2026',
+    lang_bn: 'বাংলা',
+    lang_en: 'EN',
   },
 
   identity: {
@@ -17,6 +20,7 @@ export const en: typeof bn = {
     clear: 'Clear',
     cancel: 'Cancel',
     confirm_clear: 'Are you sure you want to clear this ID?',
+    verified: 'VERIFIED',
     current_count: 'digits',
     invalid_error: 'Enter a valid 17-digit number (current: {count} digits)',
     required_error: 'Please enter a valid 17-digit birth registration number.',
@@ -52,9 +56,12 @@ export const en: typeof bn = {
     apply_success: 'Congratulations! A seat in "{name}" has been successfully held for you.',
     generic_error: 'Failed to submit application. Please try again.',
     load_error: 'Failed to load class list. Unable to communicate with the server.',
+    seat_occupancy: 'Seat Allocation',
   },
 
   application: {
+    minutes: 'Minutes',
+    seconds: 'Seconds',
     status_label: 'Application Status',
     status_held: 'Seat Held (HELD - Fee Payment Pending)',
     status_confirmed: 'Admission Confirmed (CONFIRMED)',

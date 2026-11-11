@@ -148,7 +148,7 @@ export const StudentIdentityCard: React.FC = () => {
                 <span>{t.identity.title}</span>
                 <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  VERIFIED
+                  {t.identity.verified}
                 </span>
               </div>
               <div className="text-base sm:text-xl font-mono font-black text-slate-900 tracking-wider mt-0.5">

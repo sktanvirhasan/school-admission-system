@@ -111,7 +111,7 @@ export const MyApplications: React.FC<Props> = ({ onSelectHold, refreshTrigger }
             onClick={() => fetchMyHolds(false)}
             disabled={refreshing || loading}
             className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors border border-slate-200 bg-white shadow-2xs"
-            title="Refresh"
+            title={t.classList.refresh}
           >
             <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
           </button>

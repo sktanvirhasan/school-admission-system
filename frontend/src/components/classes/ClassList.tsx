@@ -17,6 +17,7 @@ import {
   Send,
   Ban,
   Sparkles,
+  X,
 } from 'lucide-react';
 
 interface Props {
@@ -161,7 +162,7 @@ export const ClassList: React.FC<Props> = ({ onHoldCreated, refreshTrigger }) =>
             onClick={() => setFeedback(null)}
             className="text-slate-400 hover:text-slate-700 text-sm font-bold ml-2"
           >
-            ✕
+            <X className="w-4 h-4" />
           </button>
         </div>
       )}
@@ -233,7 +234,7 @@ export const ClassList: React.FC<Props> = ({ onHoldCreated, refreshTrigger }) =>
                   
                   <div className="space-y-1.5 pt-3">
                     <div className="flex justify-between text-[11px] font-semibold text-slate-500">
-                      <span>আসন বরাদ্দ</span>
+                      <span>{t.classList.seat_occupancy}</span>
                       <span>{filledPercent}%</span>
                     </div>
                     <Progress

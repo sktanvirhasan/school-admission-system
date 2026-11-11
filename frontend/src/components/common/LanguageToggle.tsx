@@ -3,7 +3,7 @@ import { useLanguage } from '../../i18n';
 import { Globe } from 'lucide-react';
 
 export const LanguageToggle: React.FC = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <div className="inline-flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200">
@@ -17,7 +17,7 @@ export const LanguageToggle: React.FC = () => {
             : 'text-slate-600 hover:text-slate-900'
         }`}
       >
-        বাংলা
+        {t.brand.lang_bn}
       </button>
       <button
         type="button"
@@ -28,7 +28,7 @@ export const LanguageToggle: React.FC = () => {
             : 'text-slate-600 hover:text-slate-900'
         }`}
       >
-        EN
+        {t.brand.lang_en}
       </button>
     </div>
   );

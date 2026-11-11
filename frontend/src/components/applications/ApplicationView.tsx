@@ -286,7 +286,7 @@ export const ApplicationView: React.FC<Props> = ({
                 <span className="w-16 sm:w-20 py-2 sm:py-3 rounded-xl bg-slate-900 text-white font-mono text-3xl sm:text-4xl font-black shadow-md tracking-wider">
                   {pad(minutes)}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 mt-1 uppercase">মিনিট</span>
+                <span className="text-[10px] font-bold text-slate-500 mt-1 uppercase">{t.application.minutes}</span>
               </div>
 
               <span className="text-3xl sm:text-4xl font-mono font-bold text-slate-400 -mt-4">:</span>
@@ -301,7 +301,7 @@ export const ApplicationView: React.FC<Props> = ({
                 >
                   {pad(seconds)}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 mt-1 uppercase">সেকেন্ড</span>
+                <span className="text-[10px] font-bold text-slate-500 mt-1 uppercase">{t.application.seconds}</span>
               </div>
             </div>
 

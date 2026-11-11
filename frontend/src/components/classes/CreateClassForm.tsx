@@ -155,8 +155,10 @@ export const CreateClassForm: React.FC<Props> = ({ onClassCreated }) => {
           <ShieldCheck className="w-4 h-4 text-indigo-600" />
           {t.createClass.guide_title}
         </h4>
-        <p className="leading-relaxed">• {t.createClass.guide_p1}</p>
-        <p className="leading-relaxed">• {t.createClass.guide_p2}</p>
+        <ul className="space-y-1.5 list-disc list-inside leading-relaxed">
+          <li>{t.createClass.guide_p1}</li>
+          <li>{t.createClass.guide_p2}</li>
+        </ul>
       </div>
     </div>
   );

@@ -5,6 +5,9 @@ export const bn = {
     subtitle: 'School Admission System (আগে আসলে আগে পাবেন ভিত্তিতে)',
     footer_text: 'School Admission System — অনলাইন ভর্তি কার্যক্রম',
     footer_help: 'কোনো সমস্যা হলে ১৭ অঙ্কের আইডি দিয়ে পেজ রিলোড করুন',
+    session_year: '২০২৬',
+    lang_bn: 'বাংলা',
+    lang_en: 'EN',
   },
 
   identity: {
@@ -15,6 +18,7 @@ export const bn = {
     clear: 'মুছে ফেলুন',
     cancel: 'বাতিল',
     confirm_clear: 'আপনি কি এই আইডি মুছে ফেলতে চান?',
+    verified: 'যাচাইকৃত',
     current_count: 'অঙ্ক',
     invalid_error: '১৭ অঙ্কের সঠিক নম্বর দিন (বর্তমান: {count} অঙ্ক)',
     required_error: '১৭ অঙ্কের সঠিক জন্ম নিবন্ধন নম্বর দিন।',
@@ -50,9 +54,12 @@ export const bn = {
     apply_success: 'অভিনন্দন! "{name}"-এ আপনার জন্য একটি সিট সফলভাবে সংরক্ষিত (Hold) হয়েছে।',
     generic_error: 'আবেদনে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
     load_error: 'ক্লাস তালিকা লোড করতে সমস্যা হয়েছে। সার্ভারের সাথে যোগাযোগ করা যাচ্ছে না।',
+    seat_occupancy: 'আসন বরাদ্দ',
   },
 
   application: {
+    minutes: 'মিনিট',
+    seconds: 'সেকেন্ড',
     status_label: 'আবেদনের বর্তমান অবস্থা',
     status_held: 'সিট সংরক্ষিত (HELD - ফি জমাদান বাকি)',
     status_confirmed: 'ভর্তি নিশ্চিত (CONFIRMED)',

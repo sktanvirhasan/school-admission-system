@@ -23,7 +23,7 @@ export const Navbar: React.FC = () => {
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-600/20">
                   <Sparkles className="w-2.5 h-2.5 text-indigo-500" />
-                  ২০২৬
+                  {t.brand.session_year}
                 </span>
               </div>
               <p className="text-xs text-slate-500 hidden sm:block">
